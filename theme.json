@@ -1,0 +1,17 @@
+{
+  "name": "my-theme",
+  "author": "John Doe <j.doe@example.com>",
+  "description": "My Awesome Theme",
+  "type": 1,
+  "hookFile": "hook.php",
+  "onInstall": {
+    "createTranslationKeys": "translations/",
+    "createKVStorageItems": {},
+    "activateDependencies": []
+  },
+  "onUninstall": {
+    "deleteData": true,
+    "deactivateDependencies": [],
+    "purgeDependencies": []
+  }
+}
