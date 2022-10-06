@@ -1,12 +1,16 @@
 {
-  "name": "my-theme",
-  "author": "John Doe <j.doe@example.com>",
-  "description": "My Awesome Theme",
+  "name": "Crisp",
+  "author": "Justin René Back <service@j.back@jrbit.de>",
+  "description": "Example theme for CrispCMS",
   "type": 1,
-  "hookFile": "hook.php",
+  "hookFile": "ThemeHook.php",
+  "autoload": [],
+  "strict_autoloading": true,
   "onInstall": {
     "createTranslationKeys": "translations/",
-    "createKVStorageItems": {},
+    "createKVStorageItems": {
+      "site_name": "My first website!"
+    },
     "activateDependencies": []
   },
   "onUninstall": {
