@@ -1,1 +1,9 @@
-Hello World!
+{% set myTitle = "Index Page" %}
+
+
+{# Here we extend our base template #}
+{% extends "base.twig" %} 
+
+{% block content %}
+Welcome to our Website!
+{% endblock %}
