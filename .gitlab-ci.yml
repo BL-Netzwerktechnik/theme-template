@@ -1,0 +1,45 @@
+stages:
+  - test
+  - publish
+
+
+variables:
+  LICENSE_FINDER_CLI_OPTS: '--recursive'
+
+
+sast:
+  stage: test
+include:
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Dependency-Scanning.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml  
+- template: Security/License-Scanning.gitlab-ci.yml
+
+tag:
+  stage: publish
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint:
+    - ''
+  script:
+  - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+    --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+    --destination "${CI_REGISTRY_IMAGE}:latest"
+    --build-arg THEME_GIT_COMMIT=${CI_COMMIT_SHORT_SHA}
+    --build-arg THEME_GIT_TAG=${CI_COMMIT_TAG}
+  rules:
+  - if: $CI_COMMIT_TAG
+
+nightly_build:
+  stage: publish
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint:
+    - ''
+  script:
+  - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+    --destination "${CI_REGISTRY_IMAGE}:nightly"
+    --build-arg THEME_GIT_COMMIT=${CI_COMMIT_SHORT_SHA}
+    --build-arg THEME_GIT_TAG=nightly
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
