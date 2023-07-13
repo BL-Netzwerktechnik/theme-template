@@ -1,18 +1,17 @@
 <?php
-use crisp\api\Helper;
+use crisp\core\ThemeVariables;
 use crisp\models\ThemePage;
-use Twig\Environment;
 
 
 class start extends ThemePage  {
 
-    public function preRender(array $variables, Environment $TwigTheme): ?array
+    public function preRender(): void
     {
-        return ["welcome_text" => "Hello welcome to my first website!"];
+        ThemeVariables::set("welcome_text", "Hello World!");
     }
 
-    public function postRender(array $variables, Environment $TwigTheme): ?array
+    public function postRender(): void
     {
-        return null;
+
     }
 }
