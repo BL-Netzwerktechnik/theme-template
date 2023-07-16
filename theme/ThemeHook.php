@@ -25,7 +25,7 @@ class ThemeHook extends HookFile {
      * @description This function executes after a template has been rendered 
      **/
     public function postRender($CurrentPage, $CurrentFile): void {
-        return null;
+        
     }
 
 
@@ -33,7 +33,6 @@ class ThemeHook extends HookFile {
      * @description This function executes before a template has been rendered 
      **/
     public function preRender($CurrentPage, $CurrentFile): void {
-        return null;
 
     }
 
