@@ -1,22 +1,22 @@
 <?php
 
-use crisp\api\Helper;
-use crisp\models\HookFile;
-use \Twig\Environment;
+use crisp\core\Router;
+use example\views\controllers\StartPageController;
 
-class ThemeHook extends HookFile {
+
+class ThemeHook {
 
     /**
      * @description This function executes before any RESTful API Class is triggered.
      **/
-    public function preExecute(string $Interface): void {
+    public function preExecute(): void  {
 
     }
 
     /**
      * @description This function executes after any RESTful API Class is triggered 
      **/
-    public function postExecute(string $Interface): void {
+    public function postExecute(): void {
 
     }
 
@@ -24,7 +24,7 @@ class ThemeHook extends HookFile {
     /**
      * @description This function executes after a template has been rendered 
      **/
-    public function postRender($CurrentPage, $CurrentFile): void {
+    public function postRender(): void {
         
     }
 
@@ -32,8 +32,17 @@ class ThemeHook extends HookFile {
     /**
      * @description This function executes before a template has been rendered 
      **/
-    public function preRender($CurrentPage, $CurrentFile): void {
+    public function preRender(): void {
 
     }
+
+
+    /**
+     * @description This function executes before a template has been rendered 
+     **/
+    public function setup(): void {
+        Router::add("/", RouteType::PUBLIC, StartPageController::class);
+    }
+
 
 }

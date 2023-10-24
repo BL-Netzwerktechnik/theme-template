@@ -4,7 +4,7 @@
   "description": "Example theme for CrispCMS",
   "type": 1,
   "hookFile": "ThemeHook.php",
-  "autoload": [],
+  "autoload": ["includes/class"],
   "strict_autoloading": true,
   "onInstall": {
     "createTranslationKeys": "translations/",
