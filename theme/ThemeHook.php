@@ -2,6 +2,8 @@
 
 use crisp\core\Router;
 use example\views\controllers\StartPageController;
+use crisp\types\RouteType;
+
 
 
 class ThemeHook {
