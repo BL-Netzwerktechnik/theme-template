@@ -1,4 +1,4 @@
-FROM registry.jrbit.de/crispcms/core/de_de:latest
+FROM registry.jrbit.de/crispcms/core:16
 
 ARG THEME_GIT_COMMIT=NF_HASH
 ARG THEME_GIT_TAG=NF_HASH
