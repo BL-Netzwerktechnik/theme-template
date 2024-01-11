@@ -54,14 +54,12 @@ services:
         - VERBOSITY=3
         - POSTGRES_URI=postgres://postgres:postgres@postgres:5432/postgres
         - TZ=Europe/Berlin
-        - REDIS_INDEX=1
         - HOST=${HOST}
         - ROOT=${HOST}
         - PROTO=https
         - SENTRY_DSN=CHANGE_ME
         - ENVIRONMENT=development
         - SENTRY_JS_DSN=CHANGE_ME
-        - KEYCLOAK_URL=https://kc.staffid.de
         - LANG=de_DE.UTF-8
         - DEFAULT_LOCALE=de
 
