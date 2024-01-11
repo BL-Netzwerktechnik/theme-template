@@ -1,7 +1,3 @@
-
-image:
-  file: .gitpod.Dockerfile
-
 ports:
   - name: Frontend
     description: CrispCMS Frontend
@@ -18,47 +14,37 @@ ports:
     port: 5432
     onOpen: ignore
 
-  - name: Redis
-    description: Session and Ratelimit Server
-    port: 6379
+  - name: Mailhog SMTP
+    description: Mailhog SMTP Server
+    port: 1025
     onOpen: ignore
+
+  - name: Mailhog Web
+    description: Mailhog Web UI
+    port: 8025
+    onOpen: notify
 tasks:
-  - name: Postgres
-    init: docker pull postgres
-    command: 'docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=postgres --net="host" --rm postgres'
+  - name: Setup Docker Registry
+    command: | 
+              mkdir /home/gitpod/.docker
+              echo "$AUTHFILE_DOCKER" > /home/gitpod/.docker/config.json
 
-  - name: Redis
-    init: docker pull redis
-    command: 'docker run -p 6379:6379 --name redis --net="host" --rm redis'
 
-  - name: Mailhog
-    init: docker pull mailhog/mailhog
-    command: 'docker run --rm --net="host" --name=mailhog -p 1025:1025 -p 8025:8025 mailhog/mailhog'
+  - name: Setup Network
+    init: docker network create crispcms || true
 
   - name: CrispCMS
-    init: git clone https://github.com/jrb-it/crispcms /workspace/crispcms && cd /workspace/crispcms/cms && composer install && cd ${GITPOD_REPO_ROOT} && docker pull registry.jrbit.de/crispcms/core/en_us:latest
-    command: gp ports await 5432 && gp ports await 6379 && docker run --name crispcms
-             -e CRISP_THEME=crisptheme
-             -e VERBOSITY=3
-             -e POSTGRES_URI=postgres://postgres:postgres@localhost:5432/postgres
-             -e REDIS_HOST=localhost
-             -e TZ=Europe/Berlin
-             -e REDIS_INDEX=1
-             -e HOST=$(gp url 80 | sed -E 's_^https?://__')
-             -e ROOT=$(gp url 80 | sed -E 's_^https?://__')
-             -e PROTO=https
-             -e SENTRY_DSN=https://e1335d78665742d0bbd9a67935dbc6ed@sentry.internal.jrbit.de/5
-             -e ENVIRONMENT=development
-             -e FLAGSMITH_APP_URL=https://flagsmith.internal.jrbit.de/api/v1/
-             -e FLAGSMITH_API_KEY=${FLAGSMITH_API_KEY}
-             -e CRISP_FLAGSMITH_API_KEY=K8BJRBi6xiE3HweHoRQhQA
-             -e SENTRY_JS_DSN=https://sentry.internal.jrbit.de/js-sdk-loader/e1335d78665742d0bbd9a67935dbc6ed.min.js
-             -v ${GITPOD_REPO_ROOT}/theme:/var/www/crisp/themes/crisptheme
-             -p 80:80
-             -p 81:81
-             --net="host"
-             --rm
-             registry.jrbit.de/crispcms/core/en_us:latest
+    init: |
+          git clone https://github.com/jrb-it/crispcms /workspace/crispcms || true 
+          cd /workspace/crispcms
+          composer install --ignore-platform-reqs 
+          cd ${GITPOD_REPO_ROOT}
+          touch .env  || true 
+          cd ${GITPOD_REPO_ROOT}/public/includes/class
+          composer install --ignore-platform-reqs
+          cd ${GITPOD_REPO_ROOT}
+    command: ./start.sh
+
 vscode:
   extensions:
     - ms-azuretools.vscode-docker

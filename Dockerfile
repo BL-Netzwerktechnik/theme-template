@@ -1,4 +1,4 @@
-FROM registry.jrbit.de/crispcms/core:16
+FROM registry.jrbit.de/crispcms/core:17
 
 ARG THEME_GIT_COMMIT=NF_HASH
 ARG THEME_GIT_TAG=NF_HASH
@@ -7,6 +7,6 @@ ARG THEME_GIT_TAG=NF_HASH
 ENV THEME_GIT_COMMIT "$THEME_GIT_COMMIT"
 ENV THEME_GIT_TAG "$THEME_GIT_TAG"
 
-COPY --chown=33:33 theme /var/www/crisp/themes/crisptheme
+COPY --chown=33:33 public /var/www/crisp/cms/themes/crisptheme
 
 # RUN cd /var/www/crisp/themes/crisptheme/includes/class && composer install
