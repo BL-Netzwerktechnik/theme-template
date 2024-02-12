@@ -46,5 +46,12 @@ class ThemeHook {
         Router::add("/", RouteType::PUBLIC, StartPageController::class);
     }
 
+    /**
+     * @description This function executes when the CLI is executed 
+     **/
+    public function setupCli(): void {
+        
+    }
+
 
 }
