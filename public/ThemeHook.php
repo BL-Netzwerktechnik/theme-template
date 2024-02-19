@@ -1,10 +1,10 @@
 <?php
 
+use crisp\core\Cron;
 use crisp\core\Router;
 use example\views\controllers\StartPageController;
 use crisp\types\RouteType;
-
-
+use example\views\controllers\CronTestController;
 
 class ThemeHook {
 
@@ -50,7 +50,7 @@ class ThemeHook {
      * @description This function executes when the CLI is executed 
      **/
     public function setupCli(): void {
-        
+        Cron::registerJob("30 * * * *", CronTestController::class, "execute");
     }
 
 
