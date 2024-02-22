@@ -1,0 +1,13 @@
+{% set myTitle = config.site_name %}
+{# Here we use the site_name defined in the theme.json #}
+
+
+{# Here we extend our base template #}
+{% extends "base.twig" %} 
+
+{% block content %}
+{# This variable is defined in the preRender function of the start.php #}
+{{ welcome_text }} 
+<br>
+Thanks for visiting us!
+{% endblock %}

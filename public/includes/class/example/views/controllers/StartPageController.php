@@ -12,7 +12,7 @@ class StartPageController {
 
     public function preRender(): void
     {
-        echo Themes::render("views/start.twig");
+        echo Themes::render("start.twig");
     }
 
     public function postRender(): void

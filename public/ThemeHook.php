@@ -2,6 +2,7 @@
 
 use crisp\core\Cron;
 use crisp\core\Router;
+use crisp\core\Themes;
 use example\views\controllers\StartPageController;
 use crisp\types\RouteType;
 use example\views\controllers\CronTestController;
@@ -44,6 +45,8 @@ class ThemeHook {
      **/
     public function setup(): void {
         Router::add("/", RouteType::PUBLIC, StartPageController::class);
+
+        Themes::addRendererDirectory(Themes::getThemeDirectory(). "/iamnotincludedbydefault");
     }
 
     /**
