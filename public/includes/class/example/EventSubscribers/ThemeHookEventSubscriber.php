@@ -12,6 +12,7 @@ use crisp\core\Cron;
 use crisp\core\Themes;
 use example\views\controllers\StartPageController;
 use crisp\types\RouteType;
+use example\views\controllers\ApiPagecontroller;
 use example\views\controllers\CronTestController;
 
 class ThemeHookEventSubscriber implements EventSubscriberInterface
@@ -27,6 +28,7 @@ class ThemeHookEventSubscriber implements EventSubscriberInterface
     public function onSetup(Event $event): void
     {
         Router::add("/", RouteType::PUBLIC, StartPageController::class);
+        Router::add("/", RouteType::API, ApiPagecontroller::class);
 
         Themes::addRendererDirectory(Themes::getThemeDirectory() . "/iamnotincludedbydefault");
 
