@@ -8,10 +8,12 @@ use example\views\controllers\StartPageController;
 use crisp\types\RouteType;
 use example\EventSubscribers\TestEventSubscriber;
 use example\EventSubscribers\ThemeHookEventSubscriber;
+use example\EventSubscribers\ThemePageErrorEventSubscriber;
 use example\views\controllers\CronTestController;
 
 class ThemeHook {
     public function __construct() {
         EventController::getEventDispatcher()->addSubscriber(new ThemeHookEventSubscriber());
+        EventController::getEventDispatcher()->addSubscriber(new ThemePageErrorEventSubscriber());
     }
 }
